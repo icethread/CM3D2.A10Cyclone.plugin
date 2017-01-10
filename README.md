@@ -17,6 +17,15 @@ F11キーを押すことによりA10Cycloneのデバッグ用の再生ウィン�
 現状同居できないプラグイン  
 ・AddYotogiSlider
 
+・CM3D2.CycloneX10.Plugin
+
+COMポートを使用して通信していますが、今のところ接続先の機器名称を取得する方法が
+見つかっていないため初期化時は決め打ちでCOM4に通信を行っています。(作者のPC環境はCOM4で認識されるため)
+BTドングルなどを接続している等の関係でCOM番号が異なっている場合、
+コントロールパネル > デバイスマネージャ を開いて表示される「ポート(COMとLPT)」を参照し、
+Vorze_USB(COMXX) と記載されているCOM番号を控えておき、
+夜伽画面に遷移した後に後述のデバッグ画面を表示して「切断」後、控えておいたCOM番号に再接続を行ってください。
+
 ##開発・動作環境
 カスタムメイド3D2	Ver1.43.1
   
@@ -25,23 +34,22 @@ F11キーを押すことによりA10Cycloneのデバッグ用の再生ウィン�
 ###前提条件  : **Sybarys** 又は **UnityInjector** が導入済みであること。  
 
 [![ダウンロードボタン][img_download]][master zip]を押してzipファイルをダウンロード。   
-解凍後CM3D2.CycloneX10.Plugin.dllファイルを./Sybaris/Plugins/UnityInjector/フォルダに入れる。
+解凍後CM3D2.A10Cyclone.Plugin.dllファイルを./Sybaris/Plugins/UnityInjector/フォルダに入れる。
 
 特定のフォーマットで記載したxmlファイルを指定のディレクトリに入れる事により動作します。
 
-./Sybaris/Plugins/UnityInjector/Config/A10Cyclone/
+./Sybaris/Plugins/UnityInjector/Config/A10CycloneXml/
 
 ※フォルダが無い場合は自動で生成されます。
      
 ##注意書き
 
 個人で楽しむ為の非公式Modです。  
-転載・再配布・改変・改変物配布等は「KISS」又は「RENDZ」に迷惑のかからぬ様、  
+転載・再配布・改変・改変物配布等は「KISS」又は「Vorze」に迷惑のかからぬ様、  
 各自の判断・責任の下で行って下さい。  
 ハードが絡むプラグインの為、よくテストをしてからご使用ください。  ***(もげても責任取れません)***
 
 ##設定ファイルについて
-サンプルとしてUnityInjector/Config/A10CycloneXml/処女喪失セックス.xmlを同封しました。  
 全夜伽グループ名+コマンドを表記したxmlファイルをZipで同封しました。   
 各夜伽コマンドの設定はそのZip内のファイルを元に加筆、修正をしてください。  
 
@@ -172,5 +180,5 @@ Controlで使用できる属性一覧
 
 [A10CycloneSA]: http://www.vorze.jp/a10cyclonesa/ "A10CycloneSA"
 [CM3D2.CycloneX10.Plugin]: https://github.com/sirogane/CM3D2.CycloneX10.plugin/ "CM3D2.AddModsSlider.Plugin/"
-[master zip]: https://github.com/sirogane/CM3D2.CycloneX10.plugin/archive/master.zip "master zip"
+[master zip]: https://github.com/obtdai/CM3D2.CycloneX10.plugin/archive/master.zip "master zip"
 [img_download]: http://i.imgur.com/byav3Uf.png "ダウンロードボタン"
