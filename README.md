@@ -1,12 +1,12 @@
 ##CM3D2.CycloneX10.Plugin
 
-カスタムメイド3D2に電動オナホ「[CycloneX10][]」又は「[臨界点-rinkaiten-][]」を
+カスタムメイド3D2に電動オナホ「[A10CycloneSA][]」を
 連動させるプラグインです。
   
 現状夜伽のみ対応  
 
 F10キーを押すことにより実行された振動のパターンと強さをデバッグ情報として画面左上に表示されます。  
-F11キーを押すことによりCycloneX10のデバッグ用の再生ウィンドウが表示されます。  
+F11キーを押すことによりA10Cycloneのデバッグ用の再生ウィンドウが表示されます。  
 
 ウィンドウ上にあるXML再読み込みボタンを押すことにより、ゲームを再起動する事なく  
 各種振動設定XMLファイルを再読み込みして更新をする事ができます。  
@@ -18,10 +18,7 @@ F11キーを押すことによりCycloneX10のデバッグ用の再生ウィン�
 ・AddYotogiSlider
 
 ##開発・動作環境
-カスタムメイド3D2	Ver1.36
-
-UnityInjector		Ver1.0.4.0
-  
+カスタムメイド3D2	Ver1.43.1
   
 ##導入方法
 
@@ -32,19 +29,19 @@ UnityInjector		Ver1.0.4.0
 
 特定のフォーマットで記載したxmlファイルを指定のディレクトリに入れる事により動作します。
 
-./Sybaris/Plugins/UnityInjector/Config/CycloneX10Xml/
+./Sybaris/Plugins/UnityInjector/Config/A10Cyclone/
 
 ※フォルダが無い場合は自動で生成されます。
      
 ##注意書き
 
 個人で楽しむ為の非公式Modです。  
-転載・再配布・改変・改変物配布等は「KISS」又は「Waffle」に迷惑のかからぬ様、  
+転載・再配布・改変・改変物配布等は「KISS」又は「RENDZ」に迷惑のかからぬ様、  
 各自の判断・責任の下で行って下さい。  
 ハードが絡むプラグインの為、よくテストをしてからご使用ください。  ***(もげても責任取れません)***
 
 ##設定ファイルについて
-サンプルとしてUnityInjector/Config/CycloneX10Xml/処女喪失セックス.xmlを同封しました。  
+サンプルとしてUnityInjector/Config/A10CycloneXml/処女喪失セックス.xmlを同封しました。  
 全夜伽グループ名+コマンドを表記したxmlファイルをZipで同封しました。   
 各夜伽コマンドの設定はそのZip内のファイルを元に加筆、修正をしてください。  
 
@@ -63,10 +60,10 @@ UnityInjector		Ver1.0.4.0
 振動させるタイプを定義する項目です。  
 必要な分だけ作成をしてください。
   
-・Lv0		振動の強さ(0-9の数字) 興奮値 0以下  
-・Lv1		振動の強さ(0-9の数字) 興奮値 0-100   
-・Lv2		振動の強さ(0-9の数字) 興奮値 100-200   
-・Lv3		振動の強さ(0-9の数字) 興奮値 200以上   
+・Lv0		振動の強さ(0-127の数字) 興奮値 0以下  
+・Lv1		振動の強さ(0-127の数字) 興奮値 0-100   
+・Lv2		振動の強さ(0-127の数字) 興奮値 100-200   
+・Lv3		振動の強さ(0-127の数字) 興奮値 200以上   
 ・識別名	識別する名前  ↓の例でいう「STOP」や「PreSet0」、「PreSet1」
 
 ```
@@ -114,7 +111,7 @@ Yotogi_Nameはゲーム内の夜伽コマンドと同じ物を入力する事
 振動のパターンを並べて細かい動きを設定できます。
 
 Controlで使用できる属性一覧  
-・Pattern	：指定した振動パターンにする  
+・Pattern	：指定した振動パターンにする(0=正転、1=逆転)  
 ・Level		：指定した振動レベルにする(0=停止)  
 ・LevelName	：興奮値による振動レベルを適用(LevelListの識別名と一致させる事)  
 ・Delay		：実行前に指定したDelay(秒)待機をする  
@@ -126,8 +123,7 @@ Controlで使用できる属性一覧
 ○停止させるには  
  < Control Level="0" /> =>停止と同等  
 
-Ver0.1.1.0の追加点  
-○Insertの追加
+○Insertフラグ(挿入時のみ実行する)
 ```
 <Normal>
 　<!--挿入時のみ実行-->
@@ -141,7 +137,7 @@ Ver0.1.1.0の追加点
   <Control Pattern="3" LvName="PreSet3" />     　パターン 3 興奮値のレベルで振動を続ける
 </Normal>
 ```
-○Personalの追加
+○Personal設定(メイドの性格に応じたパターン設定)
 ```
 <Normal>
   <!--おねだり中(純真妹系)-->
@@ -161,12 +157,9 @@ Ver0.1.1.0の追加点
 
 ##更新履歴
 
-###0.1.1.0 [2016/08/28]
-挿入状態の有無、メイド性格のパラメーターを追加
-それに伴う設定ファイルの一部仕様変更
-
-###0.1.0.0 [2016/08/26]
-暫定初期公開Ver
+###0.0.0.1 [2017/01/10]
+[CM3D2.CycloneX10.plugin][]を元にA10Cycloneに対応。
+上記に応じてxmlファイルの振動パターン、振動レベルの範囲を変更.
 
 ##課題などメモ  
 ・夜伽以外で対応可能か？(VIP夜伽など)  
@@ -174,11 +167,10 @@ Ver0.1.1.0の追加点
 　　→会話IDなど再生するタイミングが取得できれば実現できそう？  
 
 ##謝辞
-本プラグインを開発するにあたり、[CM3D2.AddModsSlider.Plugin][]を参考にさせていただきました。  
+本プラグインを開発するにあたり、[CM3D2.CycloneX10.Plugin][]を流用させて頂きました。
 作者様にこの場を借りてお礼申し上げます。
 
-[CycloneX10]: http://www.waffle1999.com/onahole/index.html "CycloneX10"
-[臨界点-rinkaiten-]: http://www.waffle1999.com/onahole/rinkaiten.html "rinkaiten"
-[CM3D2.AddModsSlider.Plugin]: https://github.com/CM3D2-01/CM3D2.AddModsSlider.Plugin "CM3D2-01/CM3D2.AddModsSlider.Plugin/"
-[master zip]:https://github.com/sirogane/CM3D2.CycloneX10.plugin/archive/master.zip "master zip"
+[A10CycloneSA]: http://www.vorze.jp/a10cyclonesa/ "A10CycloneSA"
+[CM3D2.CycloneX10.Plugin]: https://github.com/sirogane/CM3D2.CycloneX10.plugin/ "CM3D2.AddModsSlider.Plugin/"
+[master zip]: https://github.com/sirogane/CM3D2.CycloneX10.plugin/archive/master.zip "master zip"
 [img_download]: http://i.imgur.com/byav3Uf.png "ダウンロードボタン"

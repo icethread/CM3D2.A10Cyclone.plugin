@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-public class CycloneX10Config
+public class A10CycloneConfig
 {
     public editInformation EditInformation = new editInformation();
     public List<LevelItem> LevelList = new List<LevelItem>();
