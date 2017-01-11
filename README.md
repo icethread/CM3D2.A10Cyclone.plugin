@@ -1,4 +1,4 @@
-##CM3D2.CycloneX10.Plugin
+##CM3D2.A10Cyclone.Plugin
 
 カスタムメイド3D2に電動オナホ「[A10CycloneSA][]」を
 連動させるプラグインです。
