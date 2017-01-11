@@ -287,6 +287,9 @@
     <Content Include="UnityInjector\Config\A10CycloneXml\セックス正常位.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /B /Y $(ProjectDir)$(OutDir)$(TargetFileName) $(ProjectDir)UnityInjector\$(TargetFileName)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
