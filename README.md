@@ -183,5 +183,5 @@ xmlファイルの振動パターンを変更(0:正転、1:反転)、
 
 [A10CycloneSA]: http://www.vorze.jp/a10cyclonesa/ "A10CycloneSA"
 [CM3D2.CycloneX10.Plugin]: https://github.com/sirogane/CM3D2.CycloneX10.plugin/ "CM3D2.AddModsSlider.Plugin/"
-[master zip]: https://github.com/obtdai/CM3D2.CycloneX10.plugin/archive/master.zip "master zip"
+[master zip]: https://github.com/obtdai/CM3D2.A10Cyclone.plugin/archive/master.zip "master zip"
 [img_download]: http://i.imgur.com/byav3Uf.png "ダウンロードボタン"
