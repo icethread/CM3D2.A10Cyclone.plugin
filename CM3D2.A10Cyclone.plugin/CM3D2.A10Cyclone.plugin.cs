@@ -158,76 +158,85 @@ namespace CM3D2.A10Cyclone.plugin
             //興奮状態のステータス
             yExciteStatus = YotogiPlay.GetExcitementStatus(iLastExcite);
 
-            foreach (A10CycloneConfig.Control Item in YotogiItem.ControlData)
-            {
-                //性格の指定があるかどうか(未指定の場合はそのまま実行)
-                if (Item.Personal == "" || Item.Personal == Personal)
-                {
-                    //挿入時に挿入フラグがあった場合もしくはそれ以外
-                    if ((Item.Insert && InsertFlg) || Item.Insert == false)
-                    {
-                        //現在のPatternとLevel
-                        A10CycloneClass.Pattern SetPattan = a10Cyclone.pattern;
-                        int SetLevel = a10Cyclone.level;
-
-						//Patternの定義があれば更新
-						if (0 == Item.Pattern)
+			// 指定コマンドの制御状態をループする.
+			while (true)
+			{
+				foreach (A10CycloneConfig.Control Item in YotogiItem.ControlData)
+				{
+					//性格の指定があるかどうか(未指定の場合はそのまま実行)
+					if (Item.Personal == "" || Item.Personal == Personal)
+					{
+						//挿入時に挿入フラグがあった場合もしくはそれ以外
+						if ((Item.Insert && InsertFlg) || Item.Insert == false)
 						{
-							SetPattan = A10CycloneClass.Pattern.ClockWise;
+							//現在のPatternとLevel
+							A10CycloneClass.Pattern SetPattan = a10Cyclone.pattern;
+							int SetLevel = a10Cyclone.level;
 
+							//Patternの定義があれば更新
+							if (0 == Item.Pattern)
+							{
+								SetPattan = A10CycloneClass.Pattern.ClockWise;
+
+							}
+							else if (1 == Item.Pattern)
+							{
+								SetPattan = A10CycloneClass.Pattern.CounterClockWise;
+							}
+
+							//Levelの定義があれば更新
+							if (-1 < Item.Level)
+							{
+								SetLevel = Clamp(Item.Level, A10CycloneClass.Level_Min, A10CycloneClass.Level_Max);
+							}
+							//LevelNameの定義がある場合
+							if (Item.LvName != "")
+							{
+								if (A10CyclonePattanDict.ContainsKey(Item.LvName))
+								{
+									//興奮値を元にLevelを更新
+									SetLevel = Clamp(GetLevel(yExciteStatus, A10CyclonePattanDict[Item.LvName]), A10CycloneClass.Level_Min, A10CycloneClass.Level_Max);
+								}
+								else
+								{
+									DebugManager.Log("LevelNameの定義が見つかりません");
+								}
+							}
+
+							//ディレイ
+							if (0.0f < Item.Delay)
+							{
+								yield return new WaitForSeconds(Item.Delay);
+							}
+
+							//振動を開始する
+							if (SetLevel != a10Cyclone.level || SetPattan != a10Cyclone.pattern)
+							{
+								//Cycloneの振動処理
+								a10Cyclone.SetPatternAndLevel(SetPattan, SetLevel);
+								//GUI用に更新をする。
+								NowPattern = (Int32)a10Cyclone.pattern;
+								NowLevel = a10Cyclone.level;
+							}
+
+							//ログを追加
+							DebugManager.Log("cycloneX10 : [Pattern:" + a10Cyclone.pattern + "][Level:" + a10Cyclone.level + "][Delay:" + Item.Delay + "][Time:" + Item.Time + "]");
+
+							//継続タイム
+							if (0.0f < Item.Time)
+							{
+								yield return new WaitForSeconds(Item.Time);
+							}
+							else
+							{
+								// 継続時間の指定が無い場合、0.1秒毎に次の処理へ移行する.
+								yield return new WaitForSeconds(0.1f);
+							}
 						}
-						else if (1 == Item.Pattern)
-						{
-							SetPattan = A10CycloneClass.Pattern.CounterClockWise;
-						}
-
-						//Levelの定義があれば更新
-						if (-1 < Item.Level)
-                        {
-                            SetLevel = Clamp(Item.Level, A10CycloneClass.Level_Min, A10CycloneClass.Level_Max);
-                        }
-                        //LevelNameの定義がある場合
-                        if (Item.LvName != "")
-                        {
-                            if (A10CyclonePattanDict.ContainsKey(Item.LvName))
-                            {
-                                //興奮値を元にLevelを更新
-                                SetLevel = Clamp(GetLevel(yExciteStatus, A10CyclonePattanDict[Item.LvName]), A10CycloneClass.Level_Min, A10CycloneClass.Level_Max);
-                            }
-                            else
-                            {
-                                DebugManager.Log("LevelNameの定義が見つかりません");
-                            }
-                        }
-
-                        //ディレイ
-                        if (0.0f < Item.Delay)
-                        {
-                            yield return new WaitForSeconds(Item.Delay);
-                        }
-
-                        //振動を開始する
-                        if (SetLevel != a10Cyclone.level || SetPattan != a10Cyclone.pattern)
-                        {
-							//Cycloneの振動処理
-							a10Cyclone.SetPatternAndLevel(SetPattan, SetLevel);
-                            //GUI用に更新をする。
-                            NowPattern = (Int32)a10Cyclone.pattern;
-                            NowLevel = a10Cyclone.level;
-                        }
-
-                        //ログを追加
-                        DebugManager.Log("cycloneX10 : [Pattern:" + a10Cyclone.pattern + "][Level:" + a10Cyclone.level + "][Delay:" + Item.Delay + "][Time:" + Item.Time + "]");
-
-                        //継続タイム
-                        if (0.0f < Item.Time)
-                        {
-                            yield return new WaitForSeconds(Item.Time);
-                        }
-                    }
-                }
-            }
-        }
+					}
+				}
+			}
+		}
         #endregion
 
         #region MonoBehaviour GUI関連

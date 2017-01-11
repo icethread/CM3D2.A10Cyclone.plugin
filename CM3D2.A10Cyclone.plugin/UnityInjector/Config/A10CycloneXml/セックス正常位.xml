@@ -17,13 +17,28 @@
       <YotogiItem>
         <Yotogi_Name>責める</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet1" />
+          <Control Pattern="0" Level="0" LvName=""  Time="1.0"/>
+          <Control Pattern="0" Level="10" LvName="" Time="1.0"/>
+          <Control Pattern="0" Level="30" LvName="" Time="1.0"/>
+          <Control Pattern="0" Level="60" LvName="" Time="1.0"/>
+          <Control Pattern="0" Level="90" LvName="" Time="1.0"/>
+          <Control Pattern="0" Level="60" LvName="" Time="1.0"/>
+          <Control Pattern="0" Level="30" LvName="" Time="1.0"/>
+          <Control Pattern="0" Level="10" LvName="" Time="1.0"/>
+          <Control Pattern="0" Level="0" LvName=""  Time="1.0"/>
+          <Control Pattern="1" Level="10" LvName="" Time="1.0"/>
+          <Control Pattern="1" Level="30" LvName="" Time="1.0"/>
+          <Control Pattern="1" Level="60" LvName="" Time="1.0"/>
+          <Control Pattern="1" Level="90" LvName="" Time="1.0"/>
+          <Control Pattern="1" Level="60" LvName="" Time="1.0"/>
+          <Control Pattern="1" Level="30" LvName="" Time="1.0"/>
+          <Control Pattern="1" Level="10" LvName="" Time="1.0"/>
         </ControlData>
       </YotogiItem>
       <YotogiItem>
         <Yotogi_Name>強く責める</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet2" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
       <YotogiItem>
@@ -35,55 +50,55 @@
       <YotogiItem>
         <Yotogi_Name>放尿絶頂</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet3" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
       <YotogiItem>
         <Yotogi_Name>潮吹き絶頂</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet3" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
       <YotogiItem>
         <Yotogi_Name>中出しおねだり</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet3" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
       <YotogiItem>
         <Yotogi_Name>中出しする</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet3" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
       <YotogiItem>
         <Yotogi_Name>外出しする</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet3" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
       <YotogiItem>
         <Yotogi_Name>キスおねだり</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet2" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
       <YotogiItem>
         <Yotogi_Name>ホールドおねだり</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet2" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
       <YotogiItem>
         <Yotogi_Name>キスしながら</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet2" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
       <YotogiItem>
         <Yotogi_Name>胸を揉みながら</Yotogi_Name>
         <ControlData>
-          <Control Pattern="-1" Level="-1" LvName="PreSet2" />
+          <Control Pattern="-1" Level="-1" LvName="STOP" />
         </ControlData>
       </YotogiItem>
     </YotogiList>
