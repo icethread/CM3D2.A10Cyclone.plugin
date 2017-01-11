@@ -17,7 +17,7 @@ namespace CM3D2.A10Cyclone.plugin
     public class A10Cyclone : UnityInjector.PluginBase
     {
         private const string PluginName = "CM3D2 A10Cyclone Plugin";
-        private const string Version = "0.0.0.1";
+        private const string Version = "0.0.0.2";
 
 
         //XMLファイルの読み込み先
