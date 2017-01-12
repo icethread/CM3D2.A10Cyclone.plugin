@@ -17,7 +17,16 @@ namespace A10Cyclone
 	
 	public class A10CycloneClass
     {
-		private const string A10CycloneDeviceName = "Vorze_USB";
+		/// <summary>
+		/// 機器情報
+		/// </summary>
+		public enum Model
+		{
+			A10Cyclone = 1,	// A10サイクロン.
+			UFOSA = 2,		// UFO SA
+			Unknown = 0xFF	// 不明
+		};
+
 		public enum Pattern
 		{
 			ClockWise = 0,	// 正転
@@ -28,7 +37,12 @@ namespace A10Cyclone
 		public const Int32 Level_Min = 0;
 		public const Int32 Level_Stop = Level_Min;
 
-		public const Int32 Offset_CounterClockWise = 128;	// 逆転時に加算するデータ
+		public const Int32 Offset_CounterClockWise = 128;   // 逆転時に加算するデータ
+
+		/// <summary>
+		/// 機種判別用コマンド (A10サイクロン、 UFO SA共通)
+		/// </summary>
+		private readonly Byte[] ModelCheckCmd = new Byte[] { 0xF0, 0x01, 0x00 };
 
 		/// 現在のパターン
 		private Pattern _pattern = Pattern.ClockWise;
@@ -79,7 +93,13 @@ namespace A10Cyclone
             Stop();
         }
 
-        ///最後のパターンとレベル
+		private Model _ConnectedModel = Model.Unknown;
+		public Model ConnectedModel
+		{
+			get { return _ConnectedModel; }
+		}
+
+		///最後のパターンとレベル
         private Pattern Old_pattern = Pattern.ClockWise;
         private Int32 Old_level = 0;
         private Boolean Old_Pause = false;
@@ -104,62 +124,86 @@ namespace A10Cyclone
 
 		public bool OpenDevice(string comPortName = "COM4")
         {
-			Byte[] DeviceCheckCmd = new byte[] { 0xFF, 0x01, 0x00 };
-
-			try
+			// すでに接続済であれば、処理しない
+			if (IsDeviceEnable == false)
 			{
-				if (comPortName != null && IsDeviceEnable == false)
+				// ポート名が指定されている
+				if (comPortName != null)
 				{
-
-					// A10Cycloneのオープン
-					port = new SerialPort(comPortName, 19200, Parity.None, 8, StopBits.One);
-					port.Open();
-
-					port.DtrEnable = true;
-					port.RtsEnable = true;
-					port.ReadTimeout = 100; // タイムアウト時間は100msとする
-
-					// 機種判定実施
-					port.Write(DeviceCheckCmd, 0, DeviceCheckCmd.Length);
-
-					// 結果を受け取る
-					Int32 result = port.ReadByte();
-
-					if (result == 0x01)
+					try
 					{
-						_DeviceEnable = true;
+						// A10Cycloneのオープン
+						port = new SerialPort(comPortName, 19200, Parity.None, 8, StopBits.One);
+						port.Open();
+
+						// 通信設定
+						port.DtrEnable = true;
+						port.RtsEnable = true;
+						port.ReadTimeout = 100; // タイムアウト時間は100msとする
+
+						// 機種判定実施
+						port.Write(ModelCheckCmd, 0, ModelCheckCmd.Length);
+
+						// 結果を受け取る
+						Int32 result = port.ReadByte();
+
+						// 結果が接続機器として認識可能か確認.
+						switch (result)
+						{
+							// A10サイクロンSA
+							case (Int32)Model.A10Cyclone:
+								_DeviceEnable = true;
+								_ConnectedModel = Model.A10Cyclone;
+								break;
+
+							// U.F.O SA
+							case (Int32)Model.UFOSA:
+								_DeviceEnable = true;
+								_ConnectedModel = Model.UFOSA;
+								break;
+
+							// 未接続 or 未定義.
+							case (Int32)Model.Unknown:
+							default:
+								_DeviceEnable = false;
+								_ConnectedModel = Model.Unknown;
+								port.Close();
+								port.Dispose();
+								port = null;
+								break;
+						}
 					}
-					else
+					catch (System.TimeoutException)
 					{
-						// 戻り値が0x01 または 戻り値なしの場合以外はA10 Cycloneではない
+						// A10 Cyclone SAと判断する.
+						// 旧い型のA10サイクロンだと、機種判別が効かないらしいため、タイムアウト時もA10サイクロンとする
+						_DeviceEnable = true;
+						_ConnectedModel = Model.A10Cyclone;
+					}
+					catch (System.Exception e)
+					{
+						Console.WriteLine(e);
 						_DeviceEnable = false;
-						port.Close();
-						port = null;
-
+						_ConnectedModel = Model.Unknown;
+						if (port != null)
+						{
+							if (port.IsOpen)
+							{
+								port.Close();
+							}
+							port.Dispose();
+							port = null;
+						}
 					}
 				}
 				else
 				{
 					_DeviceEnable = false;
+					_ConnectedModel = Model.Unknown;
 				}
 			}
-			catch (System.TimeoutException)
-			{
-				// A10 Cyclone SAと判断する.
-				_DeviceEnable = true;
-			}
-			catch (System.Exception e)
-			{
-				Console.WriteLine(e);
-				_DeviceEnable = false;
-				if (port != null && port.IsOpen)
-				{
-					port.Close();
-					port = null;
-				}
-			}
-            //取得に失敗した場合
-            return _DeviceEnable;
+
+			return _DeviceEnable;
         }
 
 		public void CloseDevice()
@@ -167,20 +211,23 @@ namespace A10Cyclone
 			//デバイスが取得できていない場合は無視をする
 			if (!IsDeviceEnable) { return; }
 
-			port.Close();
 			_DeviceEnable = false;
+			_ConnectedModel = Model.Unknown;
+			port.Close();
+			port.Dispose();
+			port = null;
 		}
 
 		// デバイス値更新
 		public void StatusUpDate()
         {
-			Byte[] buffer = new Byte[] { 0x01, 0x01, 0x00 };
-
             //デバイスが取得できていない場合は無視をする
             if (!IsDeviceEnable) { return; }
 
-            //パターン、Level、ポーズが変わった場合変更をする
-            if (Old_pattern != pattern || Old_level != level || Old_Pause != _Pause)
+			Byte[] buffer = new Byte[] { (Byte)_ConnectedModel, 0x01, 0x00 };
+
+			//パターン、Level、ポーズが変わった場合変更をする
+			if (Old_pattern != pattern || Old_level != level || Old_Pause != _Pause)
             {
 				// 送信データを設定
 				if (pattern == Pattern.ClockWise)
@@ -197,9 +244,9 @@ namespace A10Cyclone
 				{
 					buffer[2] = 0x00;
 				}
-				
+
 				// 最終のパターンとレベルを設定.
-                Old_pattern = pattern;
+				Old_pattern = pattern;
                 Old_level = level;
                 Old_Pause = _Pause;
 
@@ -259,48 +306,5 @@ namespace A10Cyclone
                 return value;
             }
         }
-
-		/// <summary>
-		/// デバイス名とCOM番号を取得.
-		/// </summary>
-		/// <returns>デバイス名とCOM番号のペア</returns>
-		public static Dictionary<string, string> GetDeviceNames()
-		{
-			var deviceNameList = new Dictionary<string, string>();
-			var check = new System.Text.RegularExpressions.Regex("(COM[1-9][0-9]?[0-9]?)");
-
-			ManagementClass mcPnPEntity = new ManagementClass("Win32_PnPEntity");
-			ManagementObjectCollection manageObjCol = mcPnPEntity.GetInstances();
-
-			//全てのPnPデバイスを探索しシリアル通信が行われるデバイスを随時追加する
-			foreach (ManagementObject manageObj in manageObjCol)
-			{
-				//Nameプロパティを取得
-				var namePropertyValue = manageObj.GetPropertyValue("Name");
-				if (namePropertyValue == null)
-				{
-					continue;
-				}
-
-
-				//Nameプロパティ文字列の一部が"(COM1)～(COM999)"と一致するときリストに追加"
-				string name = namePropertyValue.ToString();
-				if (check.IsMatch(name))
-				{
-					var comPortNo = check.Match(name).Value;
-					deviceNameList.Add(name, comPortNo);
-				}
-			}
-
-			//戻り値作成
-			if (deviceNameList.Count > 0)
-			{
-				return deviceNameList;
-			}
-			else
-			{
-				return null;
-			}
-		}
 	}
 }

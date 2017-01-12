@@ -63,7 +63,10 @@ public class A10CycloneConfig
         [System.ComponentModel.DefaultValue("")]
         public string Personal = "";       //性格
 
-    }
+		[System.Xml.Serialization.XmlAttribute("Device")]
+		[System.ComponentModel.DefaultValue("")]
+		public string Device = "";       //接続機器
+	}
 
     public class LevelItem
     {

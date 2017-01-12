@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 using UnityEngine;
 using UnityInjector.Attributes;
@@ -17,7 +18,7 @@ namespace CM3D2.A10Cyclone.plugin
     public class A10Cyclone : UnityInjector.PluginBase
     {
         private const string PluginName = "CM3D2 A10Cyclone Plugin";
-        private const string Version = "0.0.0.2";
+        private const string Version = "0.0.0.3";
 
 
         //XMLファイルの読み込み先
@@ -45,8 +46,8 @@ namespace CM3D2.A10Cyclone.plugin
         private YotogiPlayManager yotogiPlayManager;
         private Action<Yotogi.SkillData.Command.Data> orgOnClickCommand;
 
-        //A10Cyclone関連
-        private A10CycloneClass a10Cyclone = new A10CycloneClass();
+		//A10Cyclone関連
+		private List<A10CycloneClass> devices = new List<A10CycloneClass>();
         private static bool CycloneGUI = false;
         private Rect windowRect = new Rect(20, 20, 120, 50);
         private int NowPattern = 0;
@@ -58,7 +59,7 @@ namespace CM3D2.A10Cyclone.plugin
         private Dictionary<string, A10CycloneConfig.LevelItem> A10CycloneLevelsDict = new Dictionary<string, A10CycloneConfig.LevelItem>();
 
         //コルーチン
-        private IEnumerator CycloneEnum = null;
+        private List<IEnumerator> CycloneEnums = new List<IEnumerator>();
 
         #region MonoBehaviour methods
         public void Start()
@@ -111,8 +112,8 @@ namespace CM3D2.A10Cyclone.plugin
 
         public void A10CycloneInit()
         {
-            //Stopする
-            a10Cyclone.SetPatternAndLevel(0, 0);
+			//Stopする
+			devices.ForEach(device => device.SetPatternAndLevel(0, 0));
 
             //変数群初期化
             yotogi_group_name = "";
@@ -153,7 +154,7 @@ namespace CM3D2.A10Cyclone.plugin
             DebugManager.Log("Initialization complete [ Load SeenLevel:" + sceneLevel.ToString() + "]");
         }
 
-        private IEnumerator CycloneCoroutine(int iLastExcite, A10CycloneConfig.YotogiItem YotogiItem, Dictionary<string, A10CycloneConfig.LevelItem> A10CyclonePattanDict, bool InsertFlg, string Personal)
+        private IEnumerator CycloneCoroutine(int iLastExcite, A10CycloneConfig.YotogiItem YotogiItem, Dictionary<string, A10CycloneConfig.LevelItem> A10CyclonePattanDict, bool InsertFlg, string Personal, A10CycloneClass a10Cyclone)
         {
             //興奮状態のステータス
             yExciteStatus = YotogiPlay.GetExcitementStatus(iLastExcite);
@@ -169,95 +170,103 @@ namespace CM3D2.A10Cyclone.plugin
 						//挿入時に挿入フラグがあった場合もしくはそれ以外
 						if ((Item.Insert && InsertFlg) || Item.Insert == false)
 						{
-							//現在のPatternとLevel
-							A10CycloneClass.Pattern SetPattan = a10Cyclone.pattern;
-							int SetLevel = a10Cyclone.level;
+							// 接続機器の指定があるかどうか(未指定の場合はそのまま実行)
+							if ((Item.Device == "" || Item.Device == a10Cyclone.ConnectedModel.ToString()))
+							{
+								//現在のPatternとLevel
+								A10CycloneClass.Pattern SetPattan = a10Cyclone.pattern;
+								int SetLevel = a10Cyclone.level;
 
-							//Patternの定義があれば更新
-							if (0 == Item.Pattern)
-							{
-								SetPattan = A10CycloneClass.Pattern.ClockWise;
-
-							}
-							else if (1 == Item.Pattern)
-							{
-								SetPattan = A10CycloneClass.Pattern.CounterClockWise;
-							}
-
-							//Levelの定義があれば更新
-							if (-1 < Item.Level)
-							{
-								SetLevel = Clamp(Item.Level, A10CycloneClass.Level_Min, A10CycloneClass.Level_Max);
-							}
-							//LevelNameの定義がある場合
-							if (Item.LvName != "")
-							{
-								if (A10CyclonePattanDict.ContainsKey(Item.LvName))
+								//Patternの定義があれば更新
+								if (0 == Item.Pattern)
 								{
-									//興奮値を元にLevelを更新
-									SetLevel = Clamp(GetLevel(yExciteStatus, A10CyclonePattanDict[Item.LvName]), A10CycloneClass.Level_Min, A10CycloneClass.Level_Max);
+									SetPattan = A10CycloneClass.Pattern.ClockWise;
+
+								}
+								else if (1 == Item.Pattern)
+								{
+									SetPattan = A10CycloneClass.Pattern.CounterClockWise;
+								}
+
+								//Levelの定義があれば更新
+								if (-1 < Item.Level)
+								{
+									SetLevel = Clamp(Item.Level, A10CycloneClass.Level_Min, A10CycloneClass.Level_Max);
+								}
+								//LevelNameの定義がある場合
+								if (Item.LvName != "")
+								{
+									if (A10CyclonePattanDict.ContainsKey(Item.LvName))
+									{
+										//興奮値を元にLevelを更新
+										SetLevel = Clamp(GetLevel(yExciteStatus, A10CyclonePattanDict[Item.LvName]), A10CycloneClass.Level_Min, A10CycloneClass.Level_Max);
+									}
+									else
+									{
+										DebugManager.Log("LevelNameの定義が見つかりません");
+									}
+								}
+
+								//ディレイ
+								if (0.0f < Item.Delay)
+								{
+									yield return new WaitForSeconds(Item.Delay);
+								}
+
+								//振動を開始する
+								if (SetLevel != a10Cyclone.level || SetPattan != a10Cyclone.pattern)
+								{
+									//Cycloneの振動処理
+									a10Cyclone.SetPatternAndLevel(SetPattan, SetLevel);
+									//GUI用に更新をする。
+									NowPattern = (Int32)a10Cyclone.pattern;
+									NowLevel = a10Cyclone.level;
+								}
+
+								//ログを追加
+								DebugManager.Log(a10Cyclone.ConnectedModel.ToString() + ": [Pattern:" + a10Cyclone.pattern + "][Level:" + a10Cyclone.level + "][Delay:" + Item.Delay + "][Time:" + Item.Time + "]");
+
+								//継続タイム
+								if (0.0f < Item.Time)
+								{
+									yield return new WaitForSeconds(Item.Time);
 								}
 								else
 								{
-									DebugManager.Log("LevelNameの定義が見つかりません");
+									// 継続時間の指定が無い場合、0.1秒毎に次の処理へ移行する.
+									yield return new WaitForSeconds(0.1f);
 								}
-							}
-
-							//ディレイ
-							if (0.0f < Item.Delay)
-							{
-								yield return new WaitForSeconds(Item.Delay);
-							}
-
-							//振動を開始する
-							if (SetLevel != a10Cyclone.level || SetPattan != a10Cyclone.pattern)
-							{
-								//Cycloneの振動処理
-								a10Cyclone.SetPatternAndLevel(SetPattan, SetLevel);
-								//GUI用に更新をする。
-								NowPattern = (Int32)a10Cyclone.pattern;
-								NowLevel = a10Cyclone.level;
-							}
-
-							//ログを追加
-							DebugManager.Log("cycloneX10 : [Pattern:" + a10Cyclone.pattern + "][Level:" + a10Cyclone.level + "][Delay:" + Item.Delay + "][Time:" + Item.Time + "]");
-
-							//継続タイム
-							if (0.0f < Item.Time)
-							{
-								yield return new WaitForSeconds(Item.Time);
-							}
-							else
-							{
-								// 継続時間の指定が無い場合、0.1秒毎に次の処理へ移行する.
-								yield return new WaitForSeconds(0.1f);
 							}
 						}
 					}
 				}
 			}
 		}
-        #endregion
+		#endregion
 
-        #region MonoBehaviour GUI関連
+		#region MonoBehaviour GUI関連
 
-        /// <summary>
-        /// Cyclone用の操作Window
-        /// </summary>
-        /// <param name="windowID"></param>
-        private void GUIWindow(int windowID)
+		/// <summary>
+		/// Cyclone用の操作Window
+		/// </summary>
+		/// <param name="windowID"></param>
+		private void GUIWindow(int windowID)
         {
             GUILayout.BeginHorizontal();
             {
-                if (a10Cyclone.IsDeviceEnable)
-                {
-                    GUILayout.Label("接続状態: 接続中");
-                }
-                else
-                {
-                    GUILayout.Label("接続状態: 未接続");
-                }
-                if (GUILayout.Button("XML再読み込み"))
+				foreach( var device in devices)
+				{
+					GUILayout.Label(device.ConnectedModel.ToString());
+					if (device.IsDeviceEnable)
+					{
+						GUILayout.Label("接続状態: 接続中");
+					}
+					else
+					{
+						GUILayout.Label("接続状態: 未接続");
+					}
+				}
+				if (GUILayout.Button("XML再読み込み"))
                 {
                     LoadCycloneXMLFile();
                 }
@@ -296,59 +305,47 @@ namespace CM3D2.A10Cyclone.plugin
                         NowLevel = (i*10);
                     }
                 }
-                if (NowLevel != a10Cyclone.level || NowPattern != (Int32)a10Cyclone.pattern)
-                {
-					a10Cyclone.SetPatternAndLevel(NowPattern == 0 ? A10CycloneClass.Pattern.ClockWise : A10CycloneClass.Pattern.CounterClockWise, NowLevel);
-                    NowPattern = (Int32)a10Cyclone.pattern;
-                    NowLevel = a10Cyclone.level;
-                    DebugManager.Log("SetPatternAndLevel:" + a10Cyclone.pattern + "," + a10Cyclone.level);
-                }
-            }
+
+				foreach (var device in devices)
+				{
+					if (NowLevel != device.level || NowPattern != (Int32)device.pattern)
+					{
+						device.SetPatternAndLevel(NowPattern == 0 ? A10CycloneClass.Pattern.ClockWise : A10CycloneClass.Pattern.CounterClockWise, NowLevel);
+						NowPattern = (Int32)device.pattern;
+						NowLevel = device.level;
+					}
+					DebugManager.Log("SetPatternAndLevel:" + NowPattern + "," + NowLevel);
+				}
+			}
             GUILayout.EndHorizontal();
 
-			GUILayout.Label("デバイス接続");
+			GUILayout.Label("デバイス接続／切断");
 			GUILayout.BeginHorizontal();
 
-			var portNames = System.IO.Ports.SerialPort.GetPortNames();
-
-			for (var i = 0; i < portNames.Length; i++)
+			if (GUILayout.Button("再接続"))
 			{
-				if (GUILayout.Button(portNames[i]))
-				{
-					if (a10Cyclone.IsDeviceEnable)
-					{
-						a10Cyclone.SetPatternAndLevel(A10CycloneClass.Pattern.ClockWise, 0);
-						a10Cyclone.CloseDevice();
-					}
-
-					a10Cyclone.OpenDevice(portNames[i]);
-				}
+				CloseVorzeDevices();
+				OpenVorzeDevices();
 			}
-			GUILayout.EndHorizontal();
-
-			GUILayout.Label("デバイス切断");
-
-			GUILayout.BeginHorizontal();
-
 			if (GUILayout.Button("切断"))
 			{
-				if (a10Cyclone.IsDeviceEnable)
-				{
-					a10Cyclone.SetPatternAndLevel(A10CycloneClass.Pattern.ClockWise, 0);
-					a10Cyclone.CloseDevice();
-				}
+				CloseVorzeDevices();
 			}
-
 			GUILayout.EndHorizontal();
 
+			GUILayout.BeginHorizontal();
+			foreach (var device in devices)
+			{
+				if (GUILayout.Button(device.ConnectedModel.ToString() + " ポーズ:" + device.IsPause))
+				{
+					device.Pause();
+				}
+				DebugManager.Log(device.ConnectedModel.ToString() + " ポーズ:" + device.IsPause.ToString());
 
-			if (GUILayout.Button("ポーズ:" + a10Cyclone.IsPause))
-            {
-				a10Cyclone.Pause();
-                DebugManager.Log("ポーズ:" + a10Cyclone.IsPause.ToString());
-            }
+			}
+			GUILayout.EndHorizontal();
 
-            GUILayout.Label("夜伽グループ:" + yotogi_group_name);
+			GUILayout.Label("夜伽グループ:" + yotogi_group_name);
             GUILayout.Label("夜伽コマンド:" + yotogi_name);
             GUILayout.Label("興奮値　　　:" + iLastExcite.ToString() + "[" + yExciteStatus+"]");
             GUILayout.Label("挿入状態　　:" + bInsertFuck.ToString());
@@ -408,16 +405,53 @@ namespace CM3D2.A10Cyclone.plugin
             }
 
         }
-        #endregion
+		#endregion
 
-        #region UnityInjector関連
-        private bool Yotogi_initialize()
+
+		/// <summary>
+		/// デバイスクローズ
+		/// </summary>
+		private void CloseVorzeDevices()
+		{
+			foreach (var device in devices)
+			{
+				device.CloseDevice();
+			}
+			devices.Clear();
+		}
+
+		/// <summary>
+		/// デバイスを開く.
+		/// </summary>
+		private void OpenVorzeDevices()
+		{
+			// システム登録済のデバイス一覧を取得.
+			var deviceList = VorzeUSBSearcher.GetVorzeUSBDeviceList();
+
+			// デバイス一覧が空でなければ、デバイスを開く
+			if (deviceList != null)
+			{
+				foreach (var keyValue in deviceList)
+				{
+					var device = new A10CycloneClass();
+
+					// デバイスのオープンに成功したら、リスト登録
+					if (device.OpenDevice(keyValue.Key))
+					{
+						devices.Add(device);
+					}
+				}
+			}
+		}
+
+		#region UnityInjector関連
+		private bool Yotogi_initialize()
         {
-			// 初期化
-			a10Cyclone.OpenDevice();
+			// デバイスオープン
+			OpenVorzeDevices();
 
-            //メイドを取得
-            this.maid = GameMain.Instance.CharacterMgr.GetMaid(0);
+			//メイドを取得
+			this.maid = GameMain.Instance.CharacterMgr.GetMaid(0);
             if (!this.maid) return false;
 
             // 夜伽コマンドフック
@@ -479,8 +513,12 @@ namespace CM3D2.A10Cyclone.plugin
         #region A10Cyclone関連
         private void A10CycloneEvents(string yotogi_group_name, string yotogi_name, int iLastExcite, bool InsertFlg ,string Personal)
         {
-            //前回のコルーチンが走っている場合は停止をする
-            if (CycloneEnum != null) { StopCoroutine(CycloneEnum); }
+			//前回のコルーチンが走っている場合は停止をする
+			foreach (var CycloneEnum in CycloneEnums)
+			{
+				StopCoroutine(CycloneEnum);
+			}
+			CycloneEnums.Clear();
 
             YotogiItem = null;
             A10CycloneLevelsDict.Clear();
@@ -511,9 +549,15 @@ namespace CM3D2.A10Cyclone.plugin
                 {
                     DebugManager.Log("実行:" + YotogiItem.Yotogi_Name);
 
-                    //コルーチンを開始する
-                    CycloneEnum = CycloneCoroutine(iLastExcite, YotogiItem, A10CycloneLevelsDict, InsertFlg, Personal);
-                    StartCoroutine(CycloneEnum);
+					//コルーチンを開始する
+					foreach (var device in devices)
+					{
+						CycloneEnums.Add(CycloneCoroutine(iLastExcite, YotogiItem, A10CycloneLevelsDict, InsertFlg, Personal, device));
+					}
+					foreach (var CycloneEnum in CycloneEnums)
+					{
+						StartCoroutine(CycloneEnum);
+					}
                 }
             }
         }

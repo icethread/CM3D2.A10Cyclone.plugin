@@ -1,15 +1,17 @@
 ##CM3D2.A10Cyclone.Plugin
 
-カスタムメイド3D2に電動オナホ「[A10CycloneSA][]」を
-連動させるプラグインです。
+カスタムメイド3D2に電動オナホ「[A10CycloneSA][]」および「[UFOSA][]」を連動させるプラグインです。
   
 現状夜伽のみ対応  
 
 F10キーを押すことにより実行された振動のパターンと強さをデバッグ情報として画面左上に表示されます。  
-F11キーを押すことによりA10Cycloneのデバッグ用の再生ウィンドウが表示されます。  
+F11キーを押すことによりデバッグ用の再生ウィンドウが表示されます。  
 
 ウィンドウ上にあるXML再読み込みボタンを押すことにより、ゲームを再起動する事なく  
 各種振動設定XMLファイルを再読み込みして更新をする事ができます。  
+
+PCに接続されている「[A10CycloneSA][]」と「[UFOSA][]」を自動判別し、
+同時に振動設定XMLファイルにより同時に制御可能です。
 
 ##不都合など
 コマンド取得フックなどの関係で現状幾つかのプラグインと同居できない問題があります。
@@ -18,13 +20,6 @@ F11キーを押すことによりA10Cycloneのデバッグ用の再生ウィン�
 ・AddYotogiSlider
 
 ・CM3D2.CycloneX10.Plugin
-
-COMポートを使用して通信していますが、今のところ接続先の機器名称を取得する方法が
-見つかっていないため初期化時は決め打ちでCOM4に通信を行っています。(作者のPC環境はCOM4で認識されるため)
-BTドングルなどを接続している等の関係でCOM番号が異なっている場合、
-コントロールパネル > デバイスマネージャ を開いて表示される「ポート(COMとLPT)」を参照し、
-Vorze_USB(COMXX) と記載されているCOM番号を控えておき、
-夜伽画面に遷移した後に後述のデバッグ画面を表示して「切断」後、控えておいたCOM番号に再接続を行ってください。
 
 ##開発・動作環境
 カスタムメイド3D2	Ver1.43.1
@@ -128,7 +123,9 @@ Controlで使用できる属性一覧
 ・Time		：実行後に指定したTime(秒)待機をする  (指定の無い場合はデフォルトで0.1秒の継続を行います)
 ・Insert	：trueの場合非挿入→挿入時のみ実行をする  
 ・Personal	：メイドの性格が一致する場合に実行をする  
- LevelとLevelNameがそれぞれ定義されていた場合はLevelNameを優先  
+・Device    ：制御対象のデバイスを「[A10CycloneSA][]」、「[UFOSA][]」のどちらにするか選択します。指定がない場合は両方に対応します。("A10Cyclone"= A10サイクロンSAを制御、"UFOSA"= U.F.O SAを制御)
+
+ LevelとLevelNameがそれぞれ定義されていた場合はLevelNameを優先します。
 
 ○停止させるには  
  < Control Level="0" /> =>停止と同等  
@@ -164,8 +161,23 @@ Controlで使用できる属性一覧
   <Control Pattern="0" Level="3" Time="0.2" />
 </Normal>
 ```
+○Device設定(A10サイクロンSA、U.F.O SA同期制御用)
+```
+<Normal>
+  <!--A10サイクロンSAを制御-->
+  <Control Pattern="4" Level="3" Time="10.0" Device="A10Cyclone" />
+  <!--U.F.O SAを制御-->
+  <Control Pattern="4" Level="3" Time="10.0" Device="UFOSA" />
+  <!--指定なしで両方のデバイスを制御-->
+  <Control Pattern="4" Level="3" Time="10.0" />
+</Normal>
+```
 
 ##更新履歴
+###0.0.0.3 [2017/01/12]
+U.F.O SAの制御もA10サイクロンSAと同様に可能との事なので、
+U.F.O SAにも対応。多分動いているはず。
+また、接続先を自動で決定する機能を追加。
 
 ###0.0.0.2 [2017/01/11]
 「カスタムメイド3D2」改造スレッド その11」 248氏の要望に対応
@@ -181,7 +193,8 @@ xmlファイルの振動パターンを変更(0:正転、1:反転)、
 本プラグインを開発するにあたり、[CM3D2.CycloneX10.Plugin][]を流用させて頂きました。
 作者様にこの場を借りてお礼申し上げます。
 
-[A10CycloneSA]: http://www.vorze.jp/a10cyclonesa/ "A10CycloneSA"
+[A10CycloneSA]: http://www.vorze.jp/a10cyclonesa/ "A10サイクロンSA"
+[UFOSA]: http://www.vorze.jp/ufosa/ "U.F.O.SA"
 [CM3D2.CycloneX10.Plugin]: https://github.com/sirogane/CM3D2.CycloneX10.plugin/ "CM3D2.AddModsSlider.Plugin/"
 [master zip]: https://github.com/obtdai/CM3D2.A10Cyclone.plugin/archive/master.zip "master zip"
 [img_download]: http://i.imgur.com/byav3Uf.png "ダウンロードボタン"

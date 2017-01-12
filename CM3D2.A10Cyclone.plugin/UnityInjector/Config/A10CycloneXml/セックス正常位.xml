@@ -17,22 +17,40 @@
       <YotogiItem>
         <Yotogi_Name>責める</Yotogi_Name>
         <ControlData>
-          <Control Pattern="0" Level="0" LvName=""  Time="1.0"/>
-          <Control Pattern="0" Level="10" LvName="" Time="1.0"/>
-          <Control Pattern="0" Level="30" LvName="" Time="1.0"/>
-          <Control Pattern="0" Level="60" LvName="" Time="1.0"/>
-          <Control Pattern="0" Level="90" LvName="" Time="1.0"/>
-          <Control Pattern="0" Level="60" LvName="" Time="1.0"/>
-          <Control Pattern="0" Level="30" LvName="" Time="1.0"/>
-          <Control Pattern="0" Level="10" LvName="" Time="1.0"/>
-          <Control Pattern="0" Level="0" LvName=""  Time="1.0"/>
-          <Control Pattern="1" Level="10" LvName="" Time="1.0"/>
-          <Control Pattern="1" Level="30" LvName="" Time="1.0"/>
-          <Control Pattern="1" Level="60" LvName="" Time="1.0"/>
-          <Control Pattern="1" Level="90" LvName="" Time="1.0"/>
-          <Control Pattern="1" Level="60" LvName="" Time="1.0"/>
-          <Control Pattern="1" Level="30" LvName="" Time="1.0"/>
-          <Control Pattern="1" Level="10" LvName="" Time="1.0"/>
+          <Control Pattern="0" Level="0" LvName=""  Time="1.0" Device="UFOSA"/>
+          <Control Pattern="0" Level="10" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="0" Level="30" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="0" Level="60" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="0" Level="90" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="0" Level="60" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="0" Level="30" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="0" Level="10" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="0" Level="0" LvName=""  Time="1.0" Device="UFOSA"/>
+          <Control Pattern="1" Level="10" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="1" Level="30" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="1" Level="60" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="1" Level="90" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="1" Level="60" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="1" Level="30" LvName="" Time="1.0" Device="UFOSA"/>
+          <Control Pattern="1" Level="10" LvName="" Time="1.0" Device="UFOSA"/>
+
+          <Control Pattern="0" Level="90" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="0" Level="60" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="0" Level="30" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="0" Level="10" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="0" Level="0" LvName=""  Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="0" Level="10" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="0" Level="30" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="0" Level="60" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="0" Level="90" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="1" Level="60" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="1" Level="30" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="1" Level="10" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="1" Level="0" LvName=""  Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="1" Level="10" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="1" Level="30" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="1" Level="60" LvName="" Time="1.0" Device="A10Cyclone"/>
+          <Control Pattern="1" Level="90" LvName="" Time="1.0" Device="A10Cyclone"/>
         </ControlData>
       </YotogiItem>
       <YotogiItem>
