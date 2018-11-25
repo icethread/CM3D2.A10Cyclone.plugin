@@ -183,7 +183,7 @@ namespace CM3D2.A10Cyclone.plugin
 						continue;
 					}
 
-					// 興奮状態が指定と異なる場合は実行しない(未指定の場合はそのまま実行)
+					// 興奮状態を指定しているが不一致の場合は無視
 					if (0 <= Item.Excite && Item.Excite != iExciteStatus)
 					{
 						continue;

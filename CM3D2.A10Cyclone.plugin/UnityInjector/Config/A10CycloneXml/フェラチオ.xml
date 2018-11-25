@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<A10CycloneConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EditInformation>
+    <EditName>UserName</EditName>
+    <TimeStamp>20170110213805</TimeStamp>
+    <Comment />
+  </EditInformation>
+  <LevelList>
+    <LevelItem Lv0="0" Lv1="0" Lv2="0" Lv3="0">STOP</LevelItem>
+    <LevelItem Lv0="10" Lv1="30" Lv2="50" Lv3="70">PreSet1</LevelItem>
+    <LevelItem Lv0="20" Lv1="40" Lv2="60" Lv3="80">PreSet2</LevelItem>
+    <LevelItem Lv0="60" Lv1="80" Lv2="100" Lv3="120">PreSet3</LevelItem>
+  </LevelList>
+  <YotogiCXConfig>
+    <GroupName>フェラチオ</GroupName>
+    <YotogiList>
+      <YotogiItem>
+        <Yotogi_Name>咥えさせる</Yotogi_Name>
+        <ControlData>
+          <Control Level="0" Time="1.40" Insert="true" />
+          <Control Pattern="1" Excite="0" Level="30" Time="0.97" />
+          <Control Pattern="0" Excite="0" Level="40" Time="1.00" />
+          <Control Pattern="0" Excite="1" Level="40" Time="0.90" />
+          <Control Pattern="1" Excite="1" Level="50" Time="1.07" />
+          <Control Pattern="1" Excite="2" Level="70" Time="0.66" />
+          <Control Pattern="0" Excite="2" Level="70" Time="0.66" />
+          <Control Pattern="0" Excite="3" Level="90" Time="0.40" />
+          <Control Pattern="1" Excite="3" Level="90" Time="0.40" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>丁寧に咥えさせる</Yotogi_Name>
+        <ControlData>
+          <Control Level="0" Time="1.40" Insert="true" />
+          <Control Pattern="0" Excite="0" Level="40" Time="0.97" />
+          <Control Pattern="1" Excite="0" Level="50" Time="1.00" />
+          <Control Pattern="1" Excite="1" Level="40" Time="0.90" />
+          <Control Pattern="0" Excite="1" Level="60" Time="1.07" />
+          <Control Pattern="0" Excite="2" Level="80" Time="0.66" />
+          <Control Pattern="1" Excite="2" Level="80" Time="0.66" />
+          <Control Pattern="1" Excite="3" Level="100" Time="0.30" />
+          <Control Pattern="0" Excite="3" Level="100" Time="0.30" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>止めさせる</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="0" Level="1" Time="1" />
+          <Control Pattern="1" Level="1" Time="1" />
+          <Control Level="0" Time="300" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>口内出しおねだり</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="0" Level="1" Time="1" />
+          <Control Pattern="1" Level="1" Time="1" />
+          <Control Level="0" Time="300" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>精液飲み</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="0" Level="1" Time="1" />
+          <Control Pattern="1" Level="1" Time="1" />
+          <Control Level="0" Time="300" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>口内射精</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="1" Level="90" Time="0.3" />
+          <Control Pattern="0" Level="90" Time="0.3" />
+          <Control Pattern="1" Level="90" Time="0.3" />
+          <Control Pattern="0" Level="90" Time="0.3" />
+          <Control Pattern="1" Level="90" Time="0.25" />
+          <Control Pattern="0" Level="90" Time="0.25" />
+          <Control Pattern="1" Level="100" Time="0.5" />
+          <Control Pattern="0" Level="100" Time="1.0" />
+          <Control Pattern="1" Level="100" Time="1.3" />
+          <Control Pattern="0" Level="100" Time="0.8" />
+          <Control Pattern="0" Level="90" Time="1.0" />
+          <Control Pattern="1" Level="80" Time="2.0" />
+          <Control Pattern="0" Level="70" Time="2.0" />
+          <Control Pattern="1" Level="60" Time="3.0" />
+          <Control Pattern="0" Level="50" Time="3.0" />
+          <Control Pattern="1" Level="40" Time="3.0" />
+          <Control Pattern="0" Level="1" Time="1" />
+          <Control Pattern="1" Level="1" Time="1" />
+          <Control Level="0" Time="300" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>顔射</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="1" Level="90" Time="0.3" />
+          <Control Pattern="0" Level="90" Time="0.3" />
+          <Control Pattern="1" Level="90" Time="0.3" />
+          <Control Pattern="0" Level="90" Time="0.3" />
+          <Control Pattern="1" Level="90" Time="0.25" />
+          <Control Pattern="0" Level="90" Time="0.25" />
+          <Control Pattern="1" Level="100" Time="0.5" />
+          <Control Pattern="0" Level="100" Time="1.0" />
+          <Control Pattern="1" Level="100" Time="1.3" />
+          <Control Pattern="0" Level="100" Time="0.8" />
+          <Control Pattern="0" Level="90" Time="1.0" />
+          <Control Pattern="1" Level="80" Time="2.0" />
+          <Control Pattern="0" Level="70" Time="2.0" />
+          <Control Pattern="1" Level="60" Time="3.0" />
+          <Control Pattern="0" Level="50" Time="3.0" />
+          <Control Pattern="1" Level="40" Time="3.0" />
+          <Control Pattern="0" Level="1" Time="1" />
+          <Control Pattern="1" Level="1" Time="1" />
+          <Control Level="0" Time="300" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>キスさせる</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="1" Level="40" Time="1" />
+          <Control Pattern="1" Level="70" Time="0.3" />
+          <Control Pattern="0" Level="1" Time="0.35" />
+          <Control Pattern="1" Level="1" Time="0.30" />
+          <Control Pattern="0" Level="40" Time="1" />
+          <Control Pattern="0" Level="70" Time="0.3" />
+          <Control Pattern="1" Level="1" Time="0.35" />
+          <Control Pattern="0" Level="1" Time="0.30" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>舐めさせる</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="1" Level="70" Time="0.6" />
+          <Control Pattern="0" Level="1" Time="0.4" />
+          <Control Pattern="0" Level="50" Time="0.5" />
+          <Control Pattern="0" Level="40" Time="0.45" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>裏筋を舐めさせる</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="0" Level="80" Time="0.4" />
+          <Control Pattern="0" Level="60" Time="0.6" />
+          <Control Pattern="1" Level="40" Time="0.96" />
+        </ControlData>
+      </YotogiItem>
+    </YotogiList>
+  </YotogiCXConfig>
+</A10CycloneConfig>

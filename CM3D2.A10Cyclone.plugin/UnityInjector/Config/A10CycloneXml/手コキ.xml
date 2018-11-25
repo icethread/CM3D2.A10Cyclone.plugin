@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<A10CycloneConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EditInformation>
+    <EditName>UserName</EditName>
+    <TimeStamp>20170110213805</TimeStamp>
+    <Comment />
+  </EditInformation>
+  <LevelList>
+    <LevelItem Lv0="0" Lv1="0" Lv2="0" Lv3="0">STOP</LevelItem>
+    <LevelItem Lv0="10" Lv1="40" Lv2="50" Lv3="60">PreSet1</LevelItem>
+    <LevelItem Lv0="50" Lv1="60" Lv2="70" Lv3="80">PreSet2</LevelItem>
+    <LevelItem Lv0="40" Lv1="60" Lv2="80" Lv3="100">PreSet3</LevelItem>
+  </LevelList>
+  <YotogiCXConfig>
+    <GroupName>手コキ</GroupName>
+    <YotogiList>
+      <YotogiItem>
+        <Yotogi_Name>奉仕させる</Yotogi_Name>
+        <ControlData>
+          <Control Level="0" Time="1.40" Insert="true" />
+          <Control Pattern="1" Excite="0" Level="40" Time="0.90" />
+          <Control Pattern="0" Excite="0" Level="30" Time="1.00" />
+          <Control Pattern="0" Excite="1" Level="50" Time="0.90" />
+          <Control Pattern="1" Excite="1" Level="40" Time="1.07" />
+          <Control Pattern="1" Excite="2" Level="70" Time="0.60" />
+          <Control Pattern="0" Excite="2" Level="50" Time="0.72" />
+          <Control Pattern="0" Excite="3" Level="80" Time="0.65" />
+          <Control Pattern="1" Excite="3" Level="80" Time="0.65" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>丁寧に奉仕させる</Yotogi_Name>
+        <ControlData>
+          <Control Level="0" Time="1.40" Insert="true" />
+          <Control Pattern="0" Excite="0" Level="50" Time="0.90" />
+          <Control Pattern="1" Excite="0" Level="30" Time="1.00" />
+          <Control Pattern="1" Excite="1" Level="60" Time="0.90" />
+          <Control Pattern="0" Excite="1" Level="40" Time="1.07" />
+          <Control Pattern="0" Excite="2" Level="80" Time="0.60" />
+          <Control Pattern="1" Excite="2" Level="60" Time="0.72" />
+          <Control Pattern="1" Excite="3" Level="100" Time="0.32" />
+          <Control Pattern="0" Excite="3" Level="90" Time="0.33" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>止める</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="0" Level="1" Time="1" />
+          <Control Pattern="1" Level="1" Time="1" />
+          <Control Level="0" Time="300" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>顔射</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="1" Level="90" Time="0.3" />
+          <Control Pattern="0" Level="90" Time="0.3" />
+          <Control Pattern="1" Level="90" Time="0.3" />
+          <Control Pattern="0" Level="90" Time="0.3" />
+          <Control Pattern="1" Level="90" Time="0.25" />
+          <Control Pattern="0" Level="90" Time="0.25" />
+          <Control Pattern="1" Level="100" Time="0.5" />
+          <Control Pattern="0" Level="100" Time="1.0" />
+          <Control Pattern="1" Level="100" Time="1.3" />
+          <Control Pattern="0" Level="100" Time="0.8" />
+          <Control Pattern="0" Level="90" Time="1.0" />
+          <Control Pattern="1" Level="80" Time="2.0" />
+          <Control Pattern="0" Level="70" Time="2.0" />
+          <Control Pattern="1" Level="60" Time="3.0" />
+          <Control Pattern="0" Level="50" Time="3.0" />
+          <Control Pattern="1" Level="40" Time="3.0" />
+          <Control Pattern="0" Level="1" Time="1" />
+          <Control Pattern="1" Level="1" Time="1" />
+          <Control Level="0" Time="300" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>玉を弄らせる</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="0" Level="40" Time="0.7" />
+          <Control Pattern="1" Level="50" Time="1.28" />
+        </ControlData>
+      </YotogiItem>
+      <YotogiItem>
+        <Yotogi_Name>頭を撫でる</Yotogi_Name>
+        <ControlData>
+          <Control Pattern="0" Level="1" Time="1" />
+          <Control Pattern="1" Level="1" Time="1" />
+          <Control Level="0" Time="300" />
+        </ControlData>
+      </YotogiItem>
+    </YotogiList>
+  </YotogiCXConfig>
+</A10CycloneConfig>
