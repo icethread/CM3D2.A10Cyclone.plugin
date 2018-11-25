@@ -16,7 +16,7 @@ namespace A10Cyclone
 	//http://nasu.bbspink.com/test/read.cgi/onatech/1417972897/
 	
 	public class A10CycloneClass
-    {
+	{
 		/// <summary>
 		/// 機器情報
 		/// </summary>
@@ -46,52 +46,52 @@ namespace A10Cyclone
 
 		/// 現在のパターン
 		private Pattern _pattern = Pattern.ClockWise;
-        public Pattern pattern
-        {
-            get { return _pattern; }
-            set
-            {
+		public Pattern pattern
+		{
+			get { return _pattern; }
+			set
+			{
 				//値だけ更新をするので注意
 				_pattern = value;
-                //振動の更新
-                StatusUpDate();
-            }
-        }
-        /// 現在のレベル
-        private Int32 _level = Level_Stop;
-        public Int32 level
-        {
-            get { return _level; }
-            set
-            {
-                //値だけ更新をするので注意
-                _level = Clamp(value, Level_Min, Level_Max);
-                //振動の更新
-                StatusUpDate();
-            }
-        }
-        //Deviceの取得ができているかどうか
-        private Boolean _DeviceEnable = false;
-        public Boolean IsDeviceEnable
-        {
-            get { return _DeviceEnable; }
-        }
-        //ポーズの状態を取得
-        private Boolean _Pause = false;
-        public Boolean IsPause
-        {
-            get { return _Pause; }
-            set { 
-                _Pause = value;
-                SetPause(_Pause);
-            }
-        }
+				//振動の更新
+				StatusUpDate();
+			}
+		}
+		/// 現在のレベル
+		private Int32 _level = Level_Stop;
+		public Int32 level
+		{
+			get { return _level; }
+			set
+			{
+				//値だけ更新をするので注意
+				_level = Clamp(value, Level_Min, Level_Max);
+				//振動の更新
+				StatusUpDate();
+			}
+		}
+		//Deviceの取得ができているかどうか
+		private Boolean _DeviceEnable = false;
+		public Boolean IsDeviceEnable
+		{
+			get { return _DeviceEnable; }
+		}
+		//ポーズの状態を取得
+		private Boolean _Pause = false;
+		public Boolean IsPause
+		{
+			get { return _Pause; }
+			set { 
+				_Pause = value;
+				SetPause(_Pause);
+			}
+		}
 
-        /// 開放
-        void OnDestroy()
-        {
-            Stop();
-        }
+		/// 開放
+		void OnDestroy()
+		{
+			Stop();
+		}
 
 		private Model _ConnectedModel = Model.Unknown;
 		public Model ConnectedModel
@@ -100,9 +100,9 @@ namespace A10Cyclone
 		}
 
 		///最後のパターンとレベル
-        private Pattern Old_pattern = Pattern.ClockWise;
-        private Int32 Old_level = 0;
-        private Boolean Old_Pause = false;
+		private Pattern Old_pattern = Pattern.ClockWise;
+		private Int32 Old_level = 0;
+		private Boolean Old_Pause = false;
 		//A10操作用のポート.
 		SerialPort port = null;
 
@@ -123,7 +123,7 @@ namespace A10Cyclone
 		// 更新周期は200ms程度にしないと、デバイスが受け取れない可能性あり
 
 		public bool OpenDevice(string comPortName = "COM4")
-        {
+		{
 			// すでに接続済であれば、処理しない
 			if (IsDeviceEnable == false)
 			{
@@ -204,7 +204,7 @@ namespace A10Cyclone
 			}
 
 			return _DeviceEnable;
-        }
+		}
 
 		public void CloseDevice()
 		{
@@ -220,15 +220,15 @@ namespace A10Cyclone
 
 		// デバイス値更新
 		public void StatusUpDate()
-        {
-            //デバイスが取得できていない場合は無視をする
-            if (!IsDeviceEnable) { return; }
+		{
+			//デバイスが取得できていない場合は無視をする
+			if (!IsDeviceEnable) { return; }
 
 			Byte[] buffer = new Byte[] { (Byte)_ConnectedModel, 0x01, 0x00 };
 
 			//パターン、Level、ポーズが変わった場合変更をする
 			if (Old_pattern != pattern || Old_level != level || Old_Pause != _Pause)
-            {
+			{
 				// 送信データを設定
 				if (pattern == Pattern.ClockWise)
 				{
@@ -247,64 +247,64 @@ namespace A10Cyclone
 
 				// 最終のパターンとレベルを設定.
 				Old_pattern = pattern;
-                Old_level = level;
-                Old_Pause = _Pause;
+				Old_level = level;
+				Old_Pause = _Pause;
 
 				// デバイスに送信
 				port.Write(buffer, 0, buffer.Length);
-            }
-        }
+			}
+		}
 
-        /// パターンとレベルを更新する
-        public void SetPatternAndLevel(Pattern SetPattern, int SetLevel)
-        {
+		/// パターンとレベルを更新する
+		public void SetPatternAndLevel(Pattern SetPattern, int SetLevel)
+		{
 			// ポーズ強制解除
 			_Pause = false;
 			_pattern = SetPattern;
 			_level = SetLevel;
 
 			StatusUpDate();
-        }
+		}
 
-        //ポーズ&ポーズ切り替え
-        public void Pause()
-        {
-            //デバイスが取得できていない場合は無視をする
-            if (!IsDeviceEnable) { return; }
-            //ポーズ状態を逆転させる
-            SetPause(!IsPause);
-        }
-        //ポーズ状態を設定する
-        private void SetPause(bool Flag)
-        {
-            _Pause = Flag;
+		//ポーズ&ポーズ切り替え
+		public void Pause()
+		{
+			//デバイスが取得できていない場合は無視をする
+			if (!IsDeviceEnable) { return; }
+			//ポーズ状態を逆転させる
+			SetPause(!IsPause);
+		}
+		//ポーズ状態を設定する
+		private void SetPause(bool Flag)
+		{
+			_Pause = Flag;
 
 			StatusUpDate();
-        }
+		}
 
-        //停止をする
-        public void Stop()
-        {
+		//停止をする
+		public void Stop()
+		{
 			SetPatternAndLevel(Pattern.ClockWise, Level_Stop);
 
 			StatusUpDate();
-        }
+		}
 
-        /// 値の最大最小を制限する
-        private static int Clamp(int value, int Min, int Max)
-        {
-            if (value < Min)
-            {
-                return Min;
-            }
-            else if (Max < value)
-            {
-                return Max;
-            }
-            else
-            {
-                return value;
-            }
-        }
+		/// 値の最大最小を制限する
+		private static int Clamp(int value, int Min, int Max)
+		{
+			if (value < Min)
+			{
+				return Min;
+			}
+			else if (Max < value)
+			{
+				return Max;
+			}
+			else
+			{
+				return value;
+			}
+		}
 	}
 }
