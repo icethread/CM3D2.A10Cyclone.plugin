@@ -1,7 +1,7 @@
-##CM3D2.A10Cyclone.Plugin
+## CM3D2.A10Cyclone.Plugin
 
 カスタムメイド3D2に電動オナホ「[A10CycloneSA][]」および「[UFOSA][]」を連動させるプラグインです。
-  
+
 現状夜伽のみ対応  
 
 F10キーを押すことにより実行された振動のパターンと強さをデバッグ情報として画面左上に表示されます。  
@@ -13,7 +13,7 @@ F11キーを押すことによりデバッグ用の再生ウィンドウが表�
 PCに接続されている「[A10CycloneSA][]」と「[UFOSA][]」を自動判別し、
 同時に振動設定XMLファイルにより同時に制御可能です。
 
-##不都合など
+## 不都合など
 コマンド取得フックなどの関係で現状幾つかのプラグインと同居できない問題があります。
 
 現状同居できないプラグイン  
@@ -21,12 +21,12 @@ PCに接続されている「[A10CycloneSA][]」と「[UFOSA][]」を自動判�
 
 ・CM3D2.CycloneX10.Plugin
 
-##開発・動作環境
-カスタムメイド3D2	Ver1.43.1
-  
-##導入方法
+## 開発・動作環境
+カスタムメイド3D2	Ver1.60
 
-###前提条件  : **Sybarys** 又は **UnityInjector** が導入済みであること。  
+## 導入方法
+
+### 前提条件  : **Sybarys** 又は **UnityInjector** が導入済みであること。  
 
 [![ダウンロードボタン][img_download]][master zip]を押してzipファイルをダウンロード。   
 解凍後CM3D2.A10Cyclone.Plugin.dllファイルを./Sybaris/Plugins/UnityInjector/フォルダに入れる。
@@ -36,15 +36,15 @@ PCに接続されている「[A10CycloneSA][]」と「[UFOSA][]」を自動判�
 ./Sybaris/Plugins/UnityInjector/Config/A10CycloneXml/
 
 ※フォルダが無い場合は自動で生成されます。
-     
-##注意書き
+
+## 注意書き
 
 個人で楽しむ為の非公式Modです。  
 転載・再配布・改変・改変物配布等は「KISS」又は「Vorze」に迷惑のかからぬ様、  
 各自の判断・責任の下で行って下さい。  
 ハードが絡むプラグインの為、よくテストをしてからご使用ください。  ***(もげても責任取れません)***
 
-##設定ファイルについて
+## 設定ファイルについて
 全夜伽グループ名+コマンドを表記したxmlファイルをZipで同封しました。   
 各夜伽コマンドの設定はそのZip内のファイルを元に加筆、修正をしてください。  
 
@@ -62,7 +62,7 @@ PCに接続されている「[A10CycloneSA][]」と「[UFOSA][]」を自動判�
 ***○ 識別名 (必須)***  
 振動させるタイプを定義する項目です。  
 必要な分だけ作成をしてください。
-  
+
 ・Lv0		振動の強さ(0-127の数字) 興奮値 0以下  
 ・Lv1		振動の強さ(0-127の数字) 興奮値 0-100   
 ・Lv2		振動の強さ(0-127の数字) 興奮値 100-200   
@@ -72,9 +72,9 @@ PCに接続されている「[A10CycloneSA][]」と「[UFOSA][]」を自動判�
 ```
   <LevelList>
     <LevelItem Lv0="0" Lv1="0" Lv2="0" Lv3="0">STOP</LevelItem>
-    <LevelItem Lv0="1" Lv1="1" Lv2="3" Lv3="5">PreSet0</LevelItem> 
-    <LevelItem Lv0="1" Lv1="2" Lv2="3" Lv3="4">PreSet1</LevelItem> 
-    <LevelItem Lv0="1" Lv1="3" Lv2="5" Lv3="7">PreSet2</LevelItem> 
+    <LevelItem Lv0="1" Lv1="1" Lv2="3" Lv3="5">PreSet0</LevelItem>
+    <LevelItem Lv0="1" Lv1="2" Lv2="3" Lv3="4">PreSet1</LevelItem>
+    <LevelItem Lv0="1" Lv1="3" Lv2="5" Lv3="7">PreSet2</LevelItem>
     <LevelItem Lv0="1" Lv1="4" Lv2="7" Lv3="9">PreSet3</LevelItem>
   </LevelList>
 ```
@@ -120,10 +120,11 @@ Controlで使用できる属性一覧
 ・Level		：指定した振動レベルにする(0=停止)  
 ・LvName	：興奮値による振動レベルを適用(LevelListの識別名と一致させる事)  
 ・Delay		：実行前に指定したDelay(秒)待機をする  
-・Time		：実行後に指定したTime(秒)待機をする  (指定の無い場合はデフォルトで0.1秒の継続を行います)
+・Time		：実行後に指定したTime(秒)待機をする  (指定の無い場合はデフォルトで0.1秒の継続を行います)  
 ・Insert	：trueの場合非挿入→挿入時のみ実行をする  
 ・Personal	：メイドの性格が一致する場合に実行をする  
-・Device    ：制御対象のデバイスを「[A10CycloneSA][]」、「[UFOSA][]」のどちらにするか選択します。指定がない場合は両方に対応します。("A10Cyclone"= A10サイクロンSAを制御、"UFOSA"= U.F.O SAを制御)
+・Device    ：制御対象のデバイスを「[A10CycloneSA][]」、「[UFOSA][]」のどちらにするか選択します。指定がない場合は両方に対応します。("A10Cyclone"= A10サイクロンSAを制御、"UFOSA"= U.F.O SAを制御)  
+・Excite	：興奮レベルが一致する場合に実行(興奮値とレベルの対応はLvName属性と同様)
 
  LevelとLevelNameがそれぞれ定義されていた場合はLevelNameを優先します。
 
@@ -133,15 +134,15 @@ Controlで使用できる属性一覧
 ○Insertフラグ(挿入時のみ実行する)
 ```
 <Normal>
-　<!--挿入時のみ実行-->
+  <!--挿入時のみ実行-->
   <Control Pattern="0" Level="0" Time="0.8" Insert="true" />   停止 0.8秒後に次項目
-  <Control Pattern="0" Level="1" Time="0.2" Insert="true" />   パターン 0 振動レベル 1 で0.2秒後に次項目　　
+  <Control Pattern="0" Level="1" Time="0.2" Insert="true" />   パターン 0 振動レベル 1 で0.2秒後に次項目
   <Control Pattern="0" Level="0" Time="0.5" Insert="true" />   停止 0.5秒後に次項目
   <Control Pattern="0" Level="1" Time="1.0" Insert="true" />   パターン 0 振動レベル 1 で1.0秒後に次項目
   <Control Pattern="0" Level="0" Time="0.5" Insert="true" />   停止 0.5秒後に次項目
-  <Control Pattern="3" Level="1" Time="1.0" Insert="true" /> 　パターン 3 振動レベル 1 で1.0秒後に次項目
-　<!--通常責め時-->
-  <Control Pattern="3" LvName="PreSet3" />     　パターン 3 興奮値のレベルで振動を続ける
+  <Control Pattern="3" Level="1" Time="1.0" Insert="true" />   パターン 3 振動レベル 1 で1.0秒後に次項目
+  <!--通常責め時-->
+  <Control Pattern="3" LvName="PreSet3" />       パターン 3 興奮値のレベルで振動を続ける
 </Normal>
 ```
 ○Personal設定(メイドの性格に応じたパターン設定)
@@ -173,28 +174,11 @@ Controlで使用できる属性一覧
 </Normal>
 ```
 
-##更新履歴
-###0.0.0.3 [2017/01/12]
-U.F.O SAの制御もA10サイクロンSAと同様に可能との事なので、
-U.F.O SAにも対応。多分動いているはず。
-また、接続先を自動で決定する機能を追加。
-
-###0.0.0.2 [2017/01/11]
-「カスタムメイド3D2」改造スレッド その11」 248氏の要望に対応
-ControlDataの終端まで処理したら先頭に戻るように仕様変更。
-これに伴い、Time指定が無い場合でも強制的に0.1秒のウェイトを挿入するように仕様変更。
-
-###0.0.0.1 [2017/01/10]
-[CM3D2.CycloneX10.plugin][]を元にA10Cycloneに対応。
-xmlファイルの振動パターンを変更(0:正転、1:反転)、
-振動レベルの範囲を変更(0～127まで有効).
-
-##謝辞
-本プラグインを開発するにあたり、[CM3D2.CycloneX10.Plugin][]を流用させて頂きました。
-作者様にこの場を借りてお礼申し上げます。
+## 本プラグインについて
+本プラグインは、[CM3D2.A10Cyclone.Plugin][]をフォークさせて頂き、機能追加を行っております。
 
 [A10CycloneSA]: http://www.vorze.jp/a10cyclonesa/ "A10サイクロンSA"
 [UFOSA]: http://www.vorze.jp/ufosa/ "U.F.O.SA"
-[CM3D2.CycloneX10.Plugin]: https://github.com/sirogane/CM3D2.CycloneX10.plugin/ "CM3D2.AddModsSlider.Plugin/"
-[master zip]: https://github.com/obtdai/CM3D2.A10Cyclone.plugin/archive/master.zip "master zip"
+[CM3D2.A10Cyclone.Plugin]: https://github.com/obtdai/CM3D2.A10Cyclone.plugin/ "CM3D2.AddModsSlider.Plugin/"
+[master zip]: https://github.com/icethread/CM3D2.A10Cyclone.plugin/archive/master.zip "master zip"
 [img_download]: http://i.imgur.com/byav3Uf.png "ダウンロードボタン"
